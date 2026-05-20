@@ -1,0 +1,103 @@
+use task1;
+show tables;
+create table persons(
+id int unique not null,
+lastname varchar(50) not null,
+firstname varchar(50) not null,
+age int
+);
+desc persons;
+insert into persons value(101,'Varma','Jayanth',30);
+insert into persons value(101,null,'Jayanth',30);
+insert into persons value(102,'Khan','TK',null);
+select * from persons;
+
+alter table persons add unique (age);
+desc persons;
+
+alter table persons drop constraint age;
+desc persons;
+
+
+create table library(
+id int unique not null,
+bookname varchar(50) not null,
+authorname varchar(50) not null,
+price int
+);
+insert into library value(201,'Jungle Book','Jack',200);
+insert into library value(301,'Ramayanam','vyasa maharshi',500);
+insert into library values(206,'Harry Potter','JK',250);
+select * from library;
+
+alter table library add unique (bookname);
+desc library;
+
+alter table library drop constraint bookname;
+desc library;
+
+drop table persons;
+create table persons(
+id int unique not null,
+lastname varchar(50) not null,
+firstname varchar(50) not null,
+age int not null,
+check (age>=18 and age<=25)
+);
+insert into persons value(101,'Varma','Jayanth',23);
+insert into persons value(102,'khan','TK',21);
+desc persons;
+select * from persons;
+alter table persons add check (id>2100);
+insert into persons value(43,'ram','hey',20);
+drop table persons;
+
+create table persons(
+id int unique not null,
+lastname varchar(50) not null,
+firstname varchar(50) not null,
+age int not null,
+city varchar(250) default 'guntur'
+);
+desc persons;
+insert into  persons values(101,'K','Anu',20,'madurai');
+insert into persons values(102,'K','Mani',23,'Vij');
+select * from persons;
+
+create table products(
+pid int primary key,
+pname varchar(100) not null,
+prefNo int not null unique
+);
+desc products;
+insert into products value(101,'Mobile',19928);
+insert into products value(102,'Hair dryer',12928);
+select * from products;
+alter table persons add primary key (id);
+desc persons;
+
+alter table persons drop primary key;
+desc persons;
+drop table products;
+create table category(
+cid int primary key,
+cname varchar(100) not null
+);
+insert into category values (101,'electronics'),(102,'Home App');
+insert into category values (105,'Samsung');
+select * from category;
+drop table products;
+CREATE TABLE products (
+    pid int primary key,
+    pname varchar(100) NOT NULL,
+    cid int, 
+    FOREIGN KEY (cid) REFERENCES category(cid)
+);
+desc products;
+delete from category where cid=101;
+
+
+insert into products values (504,'Power Bank Samsung',102);
+insert into products values(503,'Power Bank',101);
+insert into products values(507,'Samsung Power Bank',105);
+select * from products;
